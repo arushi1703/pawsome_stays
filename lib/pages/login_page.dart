@@ -162,6 +162,10 @@ class _LoginPageState extends State<LoginPage> {
             _loginFormKey.currentState?.save();
             bool result = await _authService.login(email!, password!);
             if (result){
+              _alertService.showToast(
+                text: "Login Successful",
+                icon: Icons.check,
+              );
               _navigationService.pushReplacementNamed("/home");
             }
             else{
@@ -199,7 +203,7 @@ class _LoginPageState extends State<LoginPage> {
           ),
           GestureDetector(
             onTap:(){
-              //_navigationService.pushNamed("/signUp");
+              _navigationService.pushNamed("/register");
             },
             child: const Text(
               " Sign Up",
