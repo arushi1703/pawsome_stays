@@ -226,7 +226,7 @@ class _PetregisterPageState extends State<PetregisterPage> {
 
   Widget _petRegisterButton(){
     return SizedBox(
-        width: 150,
+        width: 200,
         child: ElevatedButton(
           onPressed: () async{
             setState(() {

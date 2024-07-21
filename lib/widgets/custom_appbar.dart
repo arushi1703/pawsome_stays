@@ -7,12 +7,12 @@ class CustomAppBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return AppBar(
       iconTheme: IconThemeData(
-        color: Colors.white, // Change this to the desired color
+        color: Colors.blue, // Change this to the desired color
       ),
-      backgroundColor: Colors.blue[500],
+      backgroundColor: Colors.white,
       title: Text('Pawsome Stays',
         style: TextStyle(
-          color: Colors.white,
+          color: Colors.blue,
       ),
       ),
       //leading: Icon(Icons.account_circle_rounded),
