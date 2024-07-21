@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pawsome_stays/services/auth_service.dart';
 import 'package:pawsome_stays/services/navigation_service.dart';
-import 'package:pawsome_stays/widgets/custom_appbar.dart';
 import 'package:pawsome_stays/widgets/custom_formfield.dart';
 import 'package:get_it/get_it.dart';
 import '../consts.dart';
