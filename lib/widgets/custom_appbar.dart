@@ -6,6 +6,9 @@ class CustomAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      iconTheme: IconThemeData(
+        color: Colors.white, // Change this to the desired color
+      ),
       backgroundColor: Colors.blue[500],
       title: Text('Pawsome Stays',
         style: TextStyle(
@@ -21,7 +24,6 @@ class CustomAppBar extends StatelessWidget {
           icon: const Icon(
             Icons.settings,
             size: 25,
-            color: Colors.white,
           ),
         )
       ],

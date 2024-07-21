@@ -29,6 +29,16 @@ class AuthService{
     return false;
   }
 
+  Future<bool> logout() async{
+    try{
+      await _firebaseAuth.signOut();
+      return true;
+    }catch(e){
+      print(e);
+    }
+    return false;
+  }
+
   //everytime a state change happens for the authenticated user
   void authStateChangesStreamListener(User? user){
     if (user!=null){

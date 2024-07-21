@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pawsome_stays/services/alert_service.dart';
 import 'package:pawsome_stays/services/auth_service.dart';
 import 'package:pawsome_stays/services/navigation_service.dart';
 import 'package:pawsome_stays/widgets/custom_formfield.dart';
@@ -18,6 +19,7 @@ class _LoginPageState extends State<LoginPage> {
 
   late AuthService _authService;
   late NavigationService _navigationService;
+  late AlertService _alertService;
 
   String? email, password;
 
@@ -26,6 +28,7 @@ class _LoginPageState extends State<LoginPage> {
     super.initState();
     _authService = _getIt.get<AuthService>();
     _navigationService = _getIt.get<NavigationService>();
+    _alertService = _getIt.get<AlertService>();
   }
 
   @override
@@ -57,14 +60,14 @@ class _LoginPageState extends State<LoginPage> {
               width: MediaQuery.sizeOf(context).width,
               child: Container(
                 alignment: Alignment.center,
-                child: Text(
-                  'PAWSOME STAYS',
-                  style: TextStyle(
-                    fontSize: 30,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.blue[500],
-                  ),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(30),
+                    image: DecorationImage(
+                      image: AssetImage("images/logo.jpg"),
+                      fit : BoxFit.fill,
+                    )
                 ),
+                height : 200,
               ),
             ),
             _headerText(),
@@ -90,7 +93,7 @@ class _LoginPageState extends State<LoginPage> {
             style: TextStyle(
               fontSize: 25,
               fontWeight: FontWeight.bold,
-              color: Colors.blue[500],
+              color: Colors.blue,
             ),
           ),
           Text(
@@ -162,7 +165,10 @@ class _LoginPageState extends State<LoginPage> {
               _navigationService.pushReplacementNamed("/home");
             }
             else{
-
+              _alertService.showToast(
+                text: "Failed to login! Please try again",
+                icon: Icons.error,
+              );
             }
           }
         },

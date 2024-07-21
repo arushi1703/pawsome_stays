@@ -22,7 +22,7 @@ class _HomePageState extends State<HomePage> {
       ),
       drawer: const PreferredSize(
         preferredSize: Size.fromHeight(kToolbarHeight),
-        child: CustomDrawer(),
+        child: const CustomDrawer(),
       ),
     );
   }

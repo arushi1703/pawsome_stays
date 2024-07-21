@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:pawsome_stays/firebase_options.dart';
+import 'package:pawsome_stays/services/alert_service.dart';
 import 'package:pawsome_stays/services/auth_service.dart';
 import 'package:pawsome_stays/services/navigation_service.dart';
 
@@ -20,5 +21,9 @@ Future<void> registerServices() async{
 
   getIt.registerSingleton<NavigationService>(
     NavigationService(),
+  );
+
+  getIt.registerSingleton<AlertService>(
+    AlertService(),
   );
 }
