@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:pawsome_stays/pages/home_page.dart';
 import 'package:pawsome_stays/pages/login_page.dart';
+import 'package:pawsome_stays/pages/petRegister_page.dart';
 import 'package:pawsome_stays/pages/register_page.dart';
 
 class NavigationService{
@@ -11,6 +12,7 @@ class NavigationService{
     "/login": (context) => LoginPage(),
     "/home" : (context) => HomePage(),
     "/register" : (context) => RegisterPage(),
+    "/Petregister" : (context) => PetregisterPage(),
   };
 
   GlobalKey<NavigatorState>? get navigatorKey{

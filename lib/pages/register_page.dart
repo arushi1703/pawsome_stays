@@ -197,8 +197,8 @@ class _RegisterPageState extends State<RegisterPage> {
             setState(() {
               isLoading=false;
             });
-            /*_alertService.showToast(text: "Account Registered Successfully");
-            _navigationService.goBack();*/
+            _alertService.showToast(text: "Account Registered Successfully");
+            _navigationService.pushReplacementNamed("/Petregister");
           },
           child: Text(
             'SignUp',
