@@ -35,9 +35,11 @@ class _PaymentPageState extends State<PaymentPage> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           ElevatedButton(
-              onPressed: (){
+              onPressed: () async {
                 _navigationService.pushReplacementNamed("/home");
-                _alertService.showToast(text: "Booking successful");
+                _alertService.showToast(text: "Payment successful");
+                await Future.delayed(Duration(seconds: 2));
+                _alertService.showToast(text: "Booking made");
               },
               child: Text("Pay"),
           )

@@ -64,6 +64,12 @@ class _HomePageState extends State<HomePage> {
                 icon: Icon(Icons.bathroom),
                 path:"/petServices"
               ),
+              CustomCard(
+                  title: "Status",
+                  subtitle: "Look at how your pet is doing!",
+                  icon: Icon(Icons.photo),
+                  path:"/status"
+              ),
             ],
           )
         )

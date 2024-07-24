@@ -5,6 +5,7 @@ import 'package:pawsome_stays/pages/login_page.dart';
 import 'package:pawsome_stays/pages/payment_page.dart';
 import 'package:pawsome_stays/pages/petRegister_page.dart';
 import 'package:pawsome_stays/pages/register_page.dart';
+import 'package:pawsome_stays/pages/status_page.dart';
 
 class NavigationService{
 
@@ -17,6 +18,7 @@ class NavigationService{
     "/Petregister" : (context) => PetregisterPage(),
     "/booking" : (context) => BookingPage(),
     "/payment" : (context) => PaymentPage(),
+    "/status" : (context) => StatusPage(),
   };
 
   GlobalKey<NavigatorState>? get navigatorKey{
