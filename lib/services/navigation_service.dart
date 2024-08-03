@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:pawsome_stays/pages/beds_page.dart';
 import 'package:pawsome_stays/pages/booking_page.dart';
 import 'package:pawsome_stays/pages/home_page.dart';
 import 'package:pawsome_stays/pages/login_page.dart';
@@ -19,6 +20,7 @@ class NavigationService{
     "/booking" : (context) => BookingPage(),
     "/payment" : (context) => PaymentPage(),
     "/status" : (context) => StatusPage(),
+    "/beds" : (context) => BedsPage(),
   };
 
   GlobalKey<NavigatorState>? get navigatorKey{

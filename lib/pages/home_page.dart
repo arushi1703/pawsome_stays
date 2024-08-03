@@ -19,7 +19,7 @@ class _HomePageState extends State<HomePage> {
       resizeToAvoidBottomInset: false,
       appBar: const PreferredSize(
         preferredSize: Size.fromHeight(kToolbarHeight),
-        child: CustomAppBar(),
+        child: CustomAppBar(title: 'Pawsome Stays',),
       ),
       drawer: const PreferredSize(
         preferredSize: Size.fromHeight(kToolbarHeight),
@@ -69,6 +69,12 @@ class _HomePageState extends State<HomePage> {
                   subtitle: "Look at how your pet is doing!",
                   icon: Icon(Icons.photo),
                   path:"/status"
+              ),
+              CustomCard(
+                  title: "Beds",
+                  subtitle: "Browse through our collection of beds",
+                  icon: Icon(Icons.bed_rounded),
+                  path:"/beds"
               ),
             ],
           )

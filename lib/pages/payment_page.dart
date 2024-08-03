@@ -29,7 +29,7 @@ class _PaymentPageState extends State<PaymentPage> {
     return Scaffold(
       appBar:const PreferredSize(
         preferredSize: Size.fromHeight(kToolbarHeight),
-        child: CustomAppBar(),
+        child: CustomAppBar(title: 'Make Payment'),
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,

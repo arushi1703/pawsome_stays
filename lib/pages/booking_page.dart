@@ -35,7 +35,7 @@ class _BookingPageState extends State<BookingPage> {
       resizeToAvoidBottomInset: false,
       appBar: const PreferredSize(
         preferredSize: Size.fromHeight(kToolbarHeight),
-        child: CustomAppBar(),
+        child: CustomAppBar(title: 'Pawsome Stays'),
       ),
       drawer: const PreferredSize(
         preferredSize: Size.fromHeight(kToolbarHeight),

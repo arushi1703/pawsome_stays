@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 
 class CustomAppBar extends StatelessWidget {
-  const CustomAppBar({super.key});
+
+  final String title;
+
+  const CustomAppBar({super.key, required this.title});
 
   @override
   Widget build(BuildContext context) {
@@ -10,7 +13,7 @@ class CustomAppBar extends StatelessWidget {
         color: Colors.blue, // Change this to the desired color
       ),
       backgroundColor: Colors.white,
-      title: Text('Pawsome Stays',
+      title: Text(title,
         style: TextStyle(
           color: Colors.blue,
       ),
