@@ -39,7 +39,7 @@ class _PaymentPageState extends State<PaymentPage> {
                 _navigationService.pushReplacementNamed("/home");
                 _alertService.showToast(text: "Payment successful");
                 await Future.delayed(Duration(seconds: 2));
-                _alertService.showToast(text: "Booking made");
+                _alertService.showToast(text: "Booking made\nWait for confirmation");
               },
               child: Text("Pay"),
           )

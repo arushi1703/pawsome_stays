@@ -52,24 +52,28 @@ class _HomePageState extends State<HomePage> {
                 icon: Icon(CupertinoIcons.paw),
                 path: "/petProfile"
               ),
+              SizedBox(height:30),
               CustomCard(
                   title: "Booking",
                   subtitle: "Book a bed now",
                   icon: Icon(Icons.calendar_month),
                 path:"/booking"
               ),
+              SizedBox(height:30),
               CustomCard(
                 title: "Services",
-                subtitle: "Register your pet for services!",
+                subtitle: "Browse thorough the luxury services we provide and register your pet!",
                 icon: Icon(Icons.bathroom),
-                path:"/petServices"
+                path:"/services"
               ),
+              SizedBox(height:30),
               CustomCard(
                   title: "Status",
                   subtitle: "Look at how your pet is doing!",
                   icon: Icon(Icons.photo),
                   path:"/status"
               ),
+              SizedBox(height:30),
               CustomCard(
                   title: "Beds",
                   subtitle: "Browse through our collection of beds",

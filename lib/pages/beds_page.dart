@@ -44,20 +44,22 @@ class BedsPage extends StatelessWidget {
             FillImageCard(
               heightImage: 200,
               imageProvider: AssetImage("images/basicbed.jpg"),
-              title: const Text('Basic Bed',
+              title: const Text('Basic Bed : Rs 2300',
                 style: TextStyle(
                   fontSize: 18,
                   color: Colors.blue,
                   fontWeight: FontWeight.w200
                 ),
               ),
+              tags: [],
+              width: 320,
               description: const Text('A comfortable cushioned bed suitable for all types of pets'),
             ),
             SizedBox(height: 30),
             FillImageCard(
               heightImage: 200,
               imageProvider: AssetImage("images/bolsterbed.jpg"),
-              title: const Text('Bolster Bed',
+              title: const Text('Bolster Bed : Rs3000',
                 style: TextStyle(
                     fontSize: 18,
                     color: Colors.blue,
@@ -67,6 +69,41 @@ class BedsPage extends StatelessWidget {
               description: const Text('Features raised sides or bolsters for pets that like to snuggle and feel secure.'),
             ),
             SizedBox(height: 30),
+            const Text('Luxury Beds',
+              style: TextStyle(
+                fontSize: 20,
+                color: Colors.blue,
+                fontWeight: FontWeight.w800,
+              ),
+            ),
+            SizedBox(height: 30),
+            FillImageCard(
+              heightImage: 200,
+              imageProvider: AssetImage("images/orthopedicbed.jpeg"),
+              title: const Text('Orthopedic Bed: Rs 5000',
+                style: TextStyle(
+                    fontSize: 18,
+                    color: Colors.blue,
+                    fontWeight: FontWeight.w200
+                ),
+              ),
+              width: 320,
+              description: const Text('Made with memory foam, ideal for older pets or those with joint issues.'),
+            ),
+            SizedBox(height: 30),
+            FillImageCard(
+              heightImage: 200,
+              imageProvider: AssetImage("images/heatedbed.jpg"),
+              title: const Text('Heated Bed : Rs7000',
+                style: TextStyle(
+                    fontSize: 18,
+                    color: Colors.blue,
+                    fontWeight: FontWeight.w200
+                ),
+              ),
+              width: 320,
+              description: const Text('Provides warmth, great for pets that get cold easily.'),
+            ),
           ],
         )
       )

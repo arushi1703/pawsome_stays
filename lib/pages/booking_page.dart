@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:pawsome_stays/widgets/custom_drawer.dart';
@@ -17,6 +19,9 @@ class _BookingPageState extends State<BookingPage> {
 
   final GetIt _getIt = GetIt.instance;
   late NavigationService _navigationService;
+
+  String bedType='Basic';
+  var bedtypes= ['Basic', 'Bolster', 'Orthopedic', 'Heated'];
 
   DateTimeRange dateRange = DateTimeRange(
     start: DateTime(2024,9,25),
@@ -46,7 +51,7 @@ class _BookingPageState extends State<BookingPage> {
   }
 
   Widget _buildUI(){
-    return SafeArea(
+    return SingleChildScrollView(
       child: Padding(
         padding: const EdgeInsets.symmetric(
           horizontal: 15.0,
@@ -61,10 +66,61 @@ class _BookingPageState extends State<BookingPage> {
             SizedBox(height: 30),
             _showCalendar(),
             SizedBox(height: 30),
+            _chooseBed(),
+            SizedBox(height: 30),
             _makePaymentButton(),
           ],
         ),
       ),
+    );
+  }
+
+  Widget _chooseBed(){
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children:[
+        Row(
+        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          const Text('Choose bed : ',
+            style: TextStyle(
+              fontSize: 15,
+            ),
+          ),
+          SizedBox(width: 30,),
+          DropdownButton(
+              value: bedType,
+              icon: const Icon(Icons.keyboard_arrow_down),
+              items: bedtypes.map((String items) {
+                return DropdownMenuItem(
+                  value: items,
+                  child: Text(items),
+                );
+              }).toList(),
+              onChanged: (String? value){
+                setState(() {
+                  bedType=value!;
+                });
+              }
+          ),
+        ],
+      ),
+        GestureDetector(
+          onTap:(){
+            _navigationService.pushNamed("/beds");
+          },
+          child: const Text(
+            "View bed types",
+            style: TextStyle(
+              decoration: TextDecoration.underline,
+              fontSize: 13,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ),
+    ]
     );
   }
 
