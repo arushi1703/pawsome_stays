@@ -28,7 +28,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
 
   File? selectedImage; //if user wants to give image
-  String? email, password, name, phno;
+  String? email, password, name, phno, address;
   bool isLoading=false;
 
   @override
@@ -122,7 +122,7 @@ class _RegisterPageState extends State<RegisterPage> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            _pfpSelectionField(),
+            //_pfpSelectionField(),
             CustomFormfield(
                 labelText: "Name",
                 hintText: "John Doe",
@@ -165,6 +165,17 @@ class _RegisterPageState extends State<RegisterPage> {
                 onSaved: (value){
                   setState(() {
                     phno= value;
+                  });
+                }
+            ),
+            CustomFormfield(
+                labelText: "Address",
+                hintText: "",
+                regexp: ADDRESS_VALIDATION_REGEX,
+                height: MediaQuery.sizeOf(context).height * 0.1,
+                onSaved: (value){
+                  setState(() {
+                    address= value;
                   });
                 }
             ),

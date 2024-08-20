@@ -62,7 +62,7 @@ class _HomePageState extends State<HomePage> {
               SizedBox(height:30),
               CustomCard(
                 title: "Services",
-                subtitle: "Browse thorough the luxury services we provide and register your pet!",
+                subtitle: "Register your pet for luxury services!",
                 icon: Icon(Icons.bathroom),
                 path:"/services"
               ),

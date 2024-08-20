@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:pawsome_stays/services/alert_service.dart';
 import '../services/navigation_service.dart';
 import '../widgets/custom_appbar.dart';
 import 'package:pawsome_stays/widgets/custom_drawer.dart';
@@ -15,6 +16,7 @@ class _RegisterServicePageState extends State<RegisterServicePage> {
 
   final GetIt _getIt = GetIt.instance;
   late NavigationService _navigationService;
+  late AlertService _alertService;
 
   final List<String> services = ['Grooming', 'Pawdicure', 'De-Shedding', 'DailyWalks', 'Yoga', 'Swimming'];
   List<String> selectedServices = [];
@@ -23,6 +25,7 @@ class _RegisterServicePageState extends State<RegisterServicePage> {
   void initState() {
     super.initState();
     _navigationService = _getIt.get<NavigationService>();
+    _alertService = _getIt.get<AlertService>();
   }
 
   @override
@@ -77,6 +80,8 @@ class _RegisterServicePageState extends State<RegisterServicePage> {
             ElevatedButton(
                 onPressed: (){
                   print(selectedServices);
+                  _navigationService.pushNamed("/home");
+                  _alertService.showToast(text: "Services Registered!");
                 },
                 child: const Text('Submit',
                   style: TextStyle(

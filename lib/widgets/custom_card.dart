@@ -34,22 +34,25 @@ class _CustomCardState extends State<CustomCard> {
     return Card(
       color: Colors.white,
       shadowColor: Colors.blue,
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          ListTile(
-            leading: widget.icon,
-            title: Text(widget.title,
-              style:TextStyle(
-                color: Colors.blue,
-              )
+      child: Container(
+        height: 100,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            ListTile(
+              leading: widget.icon,
+              title: Text(widget.title,
+                style:TextStyle(
+                  color: Colors.blue,
+                )
+              ),
+              subtitle: Text(widget.subtitle),
+              onTap: (){
+                _navigationService.pushNamed(widget.path);
+              },
             ),
-            subtitle: Text(widget.subtitle),
-            onTap: (){
-              _navigationService.pushNamed(widget.path);
-            },
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
