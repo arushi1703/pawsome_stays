@@ -1,5 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+import 'package:pawsome_stays/consts.dart';
 
 class AuthService{
   final FirebaseAuth _firebaseAuth= FirebaseAuth.instance;
@@ -29,7 +32,7 @@ class AuthService{
     return false;
   }
 
-  Future<bool> signup(String email, String password) async{
+  Future<String?> signup(String email, String password, String name, String phoneno, String address) async{
     try{
       final credential= await _firebaseAuth.createUserWithEmailAndPassword(
           email: email,
@@ -37,12 +40,31 @@ class AuthService{
       );
       if (credential.user != null){
         _user= credential.user;
-        return true;
+        final Map<String, dynamic> userData = {
+          'name': name,
+          'phoneno': phoneno,
+          'email': email,
+          'password': password,
+          'address': address,
+        };
+        final response = await http.post(
+          Uri.parse(backend_url+'api/petowner/add'),
+          headers: {'Content-Type': 'application/json'},
+          body: json.encode(userData),
+        );
+        print(backend_url+'api/petowner/add');
+        if (response.statusCode == 201) {
+          final responseData = json.decode(response.body);
+          print(responseData['_id']);
+          return responseData['_id'];
+        } else {
+          print('Error: ${response.body}');
+        }
       }
     }catch(e){
       print(e);
     }
-    return false;
+    return null;
   }
 
 

@@ -197,9 +197,12 @@ class _RegisterPageState extends State<RegisterPage> {
             try{
               if((_registerFormKey.currentState?.validate() ?? false )){
                 _registerFormKey.currentState?.save();
-                bool result = await _authService.signup(email!, password!);
-                if (result){
-                  print(result);
+                var ownerID = await _authService.signup(email!, password!, name!, phno!, address!);
+                if (ownerID!=null){
+                  print('Owner id:${ownerID}');
+                  _navigationService.pushReplacementWithArguments("/Petregister", ownerID);
+                }else{
+                  print('Failed to retrieve owner id');
                 }
               }
             }catch(e){
@@ -209,7 +212,6 @@ class _RegisterPageState extends State<RegisterPage> {
               isLoading=false;
             });
             _alertService.showToast(text: "Account Registered Successfully");
-            _navigationService.pushReplacementNamed("/Petregister");
           },
           child: Text(
             'SignUp',

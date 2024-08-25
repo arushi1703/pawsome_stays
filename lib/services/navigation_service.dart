@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:pawsome_stays/pages/beds_page.dart';
 import 'package:pawsome_stays/pages/booking_page.dart';
 import 'package:pawsome_stays/pages/home_page.dart';
@@ -47,6 +48,15 @@ class NavigationService{
 
   void pushReplacementNamed(String routeName){
     _navigatorKey.currentState?.pushReplacementNamed(routeName);
+  }
+
+  void pushReplacementWithArguments(String routeName, Object arguments) {
+    _navigatorKey.currentState?.pushReplacement(
+      MaterialPageRoute(
+        builder: (context) => _routes[routeName]!(context),
+        settings: RouteSettings(arguments: arguments),
+      ),
+    );
   }
 
   void goBack(){

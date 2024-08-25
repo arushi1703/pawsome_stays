@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:pawsome_stays/services/alert_service.dart';
+import 'package:pawsome_stays/services/backend_service.dart';
 import 'package:pawsome_stays/services/media_service.dart';
 import 'package:pawsome_stays/services/navigation_service.dart';
 import 'package:pawsome_stays/widgets/custom_formfield.dart';
 import 'dart:io';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 import '../consts.dart';
 
@@ -25,6 +28,7 @@ class _PetregisterPageState extends State<PetregisterPage> {
   late MediaService _mediaService;
   late AlertService _alertService;
   late NavigationService _navigationService;
+  late BackendService _backendService;
 
   File? selectedImage;
   String? petName, petnotes;
@@ -41,17 +45,20 @@ class _PetregisterPageState extends State<PetregisterPage> {
     _mediaService = _getIt.get<MediaService>();
     _alertService = _getIt.get<AlertService>();
     _navigationService = _getIt.get<NavigationService>();
+    _backendService = _getIt.get<BackendService>();
   }
 
   @override
   Widget build(BuildContext context) {
+    final ownerID = ModalRoute.of(context)!.settings.arguments as String;
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      body: _buildUI(),
+      body: _buildUI(ownerID),
     );
   }
 
-  Widget _buildUI() {
+  Widget _buildUI(String ownerID) {
+    print('This is owner id from register page:${ownerID}');
     return SafeArea(
       child: Container(
         decoration: BoxDecoration(
@@ -70,7 +77,7 @@ class _PetregisterPageState extends State<PetregisterPage> {
             children: [
               _headerText(),
               if (!isLoading) _petRegisterForm(),
-              if (!isLoading) _petRegisterButton(),
+              if (!isLoading) _petRegisterButton(ownerID),
             ],
           ),
         ),
@@ -120,7 +127,7 @@ class _PetregisterPageState extends State<PetregisterPage> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            _petPfpSelectionField(),
+            //_petPfpSelectionField(),
             CustomFormfield(
                 labelText: "Name",
                 hintText: "pet name",
@@ -224,7 +231,7 @@ class _PetregisterPageState extends State<PetregisterPage> {
     );
   }
 
-  Widget _petRegisterButton(){
+  Widget _petRegisterButton(String ownerID){
     return SizedBox(
         width: 200,
         child: ElevatedButton(
@@ -235,16 +242,34 @@ class _PetregisterPageState extends State<PetregisterPage> {
             try{
               if((_petRegisterFormKey.currentState?.validate() ?? false )){
                 _petRegisterFormKey.currentState?.save();
-                print("Name: ${petName}, \nType:${petType}, \nSex:${petSex}, \nAge:${petAge}, \nNotes: ${petnotes}");
+                print("Name: ${petName}, \nType:${petType}, \nGender:${petSex}, \nAge:${petAge}, \nNotes: ${petnotes}");
+                double roundedAge = petAge.roundToDouble();
+                Map<String, dynamic> petData = {
+                  "name": petName,
+                  "ownerID": ownerID,
+                  "pettype": petType,
+                  "gender": petSex,
+                  "age": roundedAge,
+                  "notes": petnotes,
+                };
+                var response = await _backendService.registerPet(petData);
+                print("Response Status: ${response.statusCode}");
+                print("Response Body: ${response.body}");
+                if (response.statusCode==201){
+                  _alertService.showToast(text: "Pet Registered Successfully");
+                  _navigationService.pushReplacementNamed("/login");
+                }
+                else {
+                  print("Failed to register pet.");
+                }
               }
             }catch(e){
               print(e);
+            }finally{
+              setState(() {
+                isLoading=false;
+              });
             }
-            /*setState(() {
-              isLoading=false;
-            });*/
-            _alertService.showToast(text: "Pet Registered Successfully");
-            _navigationService.pushReplacementNamed("/login");
           },
           child: Text(
             'Register Pet',

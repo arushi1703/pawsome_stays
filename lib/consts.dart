@@ -12,5 +12,7 @@ final RegExp DEFAULT_VALIDATION_REGEX = RegExp(r".*");
 
 final RegExp ADDRESS_VALIDATION_REGEX = RegExp(r'^[a-zA-Z0-9,-\s]+$');
 
+final String backend_url = "http://192.168.10.103:8080/";
+
 final String PLACEHOLDER_PFP =
     "https://t3.ftcdn.net/jpg/05/16/27/58/360_F_516275801_f3Fsp17x6HQK0xQgDQEELoTuERO4SsWV.jpg";

@@ -76,7 +76,7 @@ class _ServicesPageState extends State<ServicesPage> {
               FillImageCard(
                 heightImage: 200,
                 imageProvider: AssetImage("images/fullgrooming.jpg"),
-                title: const Text('Full Service Grooming : Rs 1000',
+                title: const Text('Full Service Grooming : Rs 2000',
                   style: TextStyle(
                       fontSize: 18,
                       color: Colors.blue,
@@ -91,7 +91,7 @@ class _ServicesPageState extends State<ServicesPage> {
               FillImageCard(
                 heightImage: 200,
                 imageProvider: AssetImage("images/pawdicure.jpg"),
-                title: const Text('Pawdicure : Rs 700',
+                title: const Text('Pawdicure : Rs 2000',
                   style: TextStyle(
                       fontSize: 18,
                       color: Colors.blue,
@@ -106,7 +106,7 @@ class _ServicesPageState extends State<ServicesPage> {
               FillImageCard(
                 heightImage: 200,
                 imageProvider: AssetImage("images/deshedding.jpg"),
-                title: const Text('De-Shedding Treatment : Rs 700',
+                title: const Text('De-Shedding Treatment : Rs 2000',
                   style: TextStyle(
                       fontSize: 18,
                       color: Colors.blue,
@@ -129,7 +129,7 @@ class _ServicesPageState extends State<ServicesPage> {
               FillImageCard(
                 heightImage: 200,
                 imageProvider: AssetImage("images/dailywalks.jpg"),
-                title: const Text('Daily Walks : Rs 300',
+                title: const Text('Daily Walks : Rs 2000',
                   style: TextStyle(
                       fontSize: 18,
                       color: Colors.blue,
@@ -144,7 +144,7 @@ class _ServicesPageState extends State<ServicesPage> {
               FillImageCard(
                 heightImage: 200,
                 imageProvider: AssetImage("images/petyoga.jpg"),
-                title: const Text('Pet Yoga : Rs 500',
+                title: const Text('Pet Yoga : Rs 2000',
                   style: TextStyle(
                       fontSize: 18,
                       color: Colors.blue,
@@ -159,7 +159,7 @@ class _ServicesPageState extends State<ServicesPage> {
               FillImageCard(
                 heightImage: 200,
                 imageProvider: AssetImage("images/swimming.jpg"),
-                title: const Text('Swimming Sessions : Rs 600',
+                title: const Text('Swimming Sessions : Rs 2000',
                   style: TextStyle(
                       fontSize: 18,
                       color: Colors.blue,
