@@ -25,7 +25,7 @@ class NavigationService{
     "/payment" : (context) => PaymentPage(),
     "/status" : (context) => StatusPage(),
     "/beds" : (context) => BedsPage(),
-    "/services": (context) => ServicesPage(),
+    "/services" : (context) => ServicesPage(),
     "/registerService" : (context) => RegisterServicePage(),
   };
 

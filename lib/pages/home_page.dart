@@ -66,7 +66,7 @@ class _HomePageState extends State<HomePage> {
                 title: "Services",
                 subtitle: "Register your pet for luxury services!",
                 icon: Icon(Icons.bathroom),
-                path:"/services"
+                path: "/services"
               ),
               SizedBox(height:30),
               CustomCard(

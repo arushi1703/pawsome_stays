@@ -16,6 +16,23 @@ class BackendService{
     return response;
   }
 
+  Future<http.Response> addServices(String petID, List<String> services) async {
+    final Map<String, dynamic> requestBody = {
+      "petID": petID,
+      "services": services,
+    };
+
+    final response = await http.post(
+      Uri.parse("$_baseUrl/api/service/add"),
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: jsonEncode(requestBody),
+    );
+
+    return response;
+  }
+
   Future<String?> getOwnerIDByEmail(String email) async {
     try {
       final response = await http.get(
@@ -38,10 +55,10 @@ class BackendService{
     return null; // Return null if the request fails
   }
 
-  /*Future<String?> getPetIDByOwnerID(String ownerID) async {
+  Future<String?> getPetIDByOwnerID(String ownerID) async {
     try {
       final response = await http.get(
-        Uri.parse("$_baseUrl/api/pet/getPetID/$ownerID"),
+        Uri.parse("$_baseUrl/api/pet/getID/${Uri.encodeComponent(ownerID)}"),
         headers: {
           "Content-Type": "application/json",
         },
@@ -57,5 +74,5 @@ class BackendService{
       print(e);
     }
     return null; // Return null if the request fails
-  }*/
+  }
 }

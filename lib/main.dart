@@ -41,8 +41,8 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
         useMaterial3: true,
       ),
-      /*initialRoute: _authService.user!= null? "/home":"/login",
-      routes: _navigationService.routes,*/
+      /*initialRoute: _authService.user!= null? "/home":"/login",*/
+      routes: _navigationService.routes,
       debugShowCheckedModeBanner: false,
       home: SplashScreen(),
     );
