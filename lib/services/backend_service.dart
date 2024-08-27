@@ -15,4 +15,47 @@ class BackendService{
     );
     return response;
   }
+
+  Future<String?> getOwnerIDByEmail(String email) async {
+    try {
+      final response = await http.get(
+        Uri.parse("$_baseUrl/api/petowner/getID/${Uri.encodeComponent(email)}"),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      );
+
+      if (response.statusCode == 200) {
+        final data = jsonDecode(response.body);
+        print('Returning owner id:${data['ownerID']}');
+        return data['ownerID']; // Return the owner ID from the response
+      } else {
+        print('Failed to retrieve owner ID: ${response.body}');
+      }
+    } catch (e) {
+      print(e);
+    }
+    return null; // Return null if the request fails
+  }
+
+  /*Future<String?> getPetIDByOwnerID(String ownerID) async {
+    try {
+      final response = await http.get(
+        Uri.parse("$_baseUrl/api/pet/getPetID/$ownerID"),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      );
+
+      if (response.statusCode == 200) {
+        final data = jsonDecode(response.body);
+        return data['petID']; // Return the pet ID from the response
+      } else {
+        print('Failed to retrieve pet ID: ${response.body}');
+      }
+    } catch (e) {
+      print(e);
+    }
+    return null; // Return null if the request fails
+  }*/
 }

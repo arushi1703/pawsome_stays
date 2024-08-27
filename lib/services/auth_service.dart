@@ -16,7 +16,7 @@ class AuthService{
     _firebaseAuth.authStateChanges().listen(authStateChangesStreamListener); //attaching a listener
   }
 
-  Future<bool> login (String email, String password) async{
+  Future<String?> login (String email, String password) async{
     try{
       final credential = await _firebaseAuth.signInWithEmailAndPassword(
           email: email,
@@ -24,12 +24,39 @@ class AuthService{
       );
       if (credential.user != null){
         _user = credential.user;
-        return true;
+        final ownerID = await _getOwnerIDFromBackend(email);
+        print(ownerID);
+        return ownerID; // Return the owner ID
       }
     }catch(e){
       print(e);
     }
-    return false;
+    return null;
+  }
+
+  Future<String?> _getOwnerIDFromBackend(String email) async {
+    try {
+      // Encode the email to ensure it is properly formatted for a URL
+      final encodedEmail = Uri.encodeComponent(email);
+
+      final response = await http.get(
+        Uri.parse(backend_url+'api/petowner/getID/$encodedEmail'),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      );
+
+      if (response.statusCode == 200) {
+        final data = jsonDecode(response.body);
+        print(data);
+        return data['ownerID']; // Return the owner ID from the response
+      } else {
+        print('Failed to retrieve owner ID: ${response.body}');
+      }
+    } catch (e) {
+      print(e);
+    }
+    return null;
   }
 
   Future<String?> signup(String email, String password, String name, String phoneno, String address) async{

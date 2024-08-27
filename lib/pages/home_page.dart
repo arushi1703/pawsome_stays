@@ -15,6 +15,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
+    final ownerID = ModalRoute.of(context)!.settings.arguments as String;
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: const PreferredSize(
@@ -25,11 +26,12 @@ class _HomePageState extends State<HomePage> {
         preferredSize: Size.fromHeight(kToolbarHeight),
         child: const CustomDrawer(),
       ),
-      body: _buildUI(),
+      body: _buildUI(ownerID),
     );
   }
 
-  Widget _buildUI(){
+  Widget _buildUI(String ownerID){
+    print('This is owner id in home page:${ownerID}');
     return SafeArea(
       child: Container(
         decoration: BoxDecoration(

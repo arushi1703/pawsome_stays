@@ -160,13 +160,15 @@ class _LoginPageState extends State<LoginPage> {
         onPressed: () async{
           if (_loginFormKey.currentState?.validate() ?? false){
             _loginFormKey.currentState?.save();
-            bool result = await _authService.login(email!, password!);
-            if (result){
+            var ownerID = await _authService.login(email!, password!);
+            print('Result from auth:${ownerID}');
+            if (ownerID!=null){
               _alertService.showToast(
                 text: "Login Successful",
                 icon: Icons.check,
               );
-              _navigationService.pushReplacementNamed("/home");
+              //_navigationService.pushReplacementNamed("/home");
+              _navigationService.pushReplacementWithArguments("/home", ownerID);
             }
             else{
               _alertService.showToast(
