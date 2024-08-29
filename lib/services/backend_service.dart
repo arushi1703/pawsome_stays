@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 
 class BackendService{
-  final String _baseUrl = "http://192.168.10.103:8080";
+  final String _baseUrl = "http://192.168.178.129:8080";
 
   Future<http.Response> registerPet(Map<String, dynamic> petData) async {
     final response = await http.post(

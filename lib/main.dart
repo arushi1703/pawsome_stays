@@ -6,6 +6,7 @@ import 'package:pawsome_stays/services/auth_service.dart';
 import 'package:pawsome_stays/services/backend_service.dart';
 import 'package:pawsome_stays/services/navigation_service.dart';
 import 'package:pawsome_stays/utils.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async{
   await setUp();
@@ -73,15 +74,11 @@ class _SplashScreenState extends State<SplashScreen> {
 
   Future<void> _checkLoginStatus() async {
     print("checking login state");
-    if (_authService.user != null) {
-      String email = _authService.user!.email!;
-      String? ownerID = await _backendService.getOwnerIDByEmail(email);
-
-      if (ownerID != null) {
-        _navigationService.pushReplacementWithArguments("/home", ownerID);
-      } else {
-        _navigationService.pushReplacementNamed("/login");
-      }
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    print("Prefs: ${prefs}");
+    String? ownerID = prefs.getString('ownerID');
+    if (ownerID != null) {
+      _navigationService.pushReplacementWithArguments("/home", ownerID);
     } else {
       _navigationService.pushReplacementNamed("/login");
     }

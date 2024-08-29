@@ -5,6 +5,7 @@ import 'package:pawsome_stays/services/navigation_service.dart';
 import 'package:pawsome_stays/widgets/custom_formfield.dart';
 import 'package:get_it/get_it.dart';
 import '../consts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -163,6 +164,9 @@ class _LoginPageState extends State<LoginPage> {
             var ownerID = await _authService.login(email!, password!);
             print('Result from auth:${ownerID}');
             if (ownerID!=null){
+              SharedPreferences prefs = await SharedPreferences.getInstance();
+              await prefs.setString('ownerID', ownerID);
+
               _alertService.showToast(
                 text: "Login Successful",
                 icon: Icons.check,
