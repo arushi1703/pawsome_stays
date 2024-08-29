@@ -49,7 +49,7 @@ class _HomePageState extends State<HomePage> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               CustomCard(
-                title: "My Pet",
+                title: "My Pet Profile",
                 subtitle: "Manage services and more for your pet!",
                 icon: Icon(CupertinoIcons.paw),
                 path: "/petProfile"

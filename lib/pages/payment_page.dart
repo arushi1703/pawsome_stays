@@ -3,6 +3,7 @@ import 'package:get_it/get_it.dart';
 import 'package:pawsome_stays/services/alert_service.dart';
 import 'package:pawsome_stays/services/navigation_service.dart';
 import 'package:pawsome_stays/widgets/custom_appbar.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class PaymentPage extends StatefulWidget {
   const PaymentPage({super.key});
@@ -32,14 +33,18 @@ class _PaymentPageState extends State<PaymentPage> {
         child: CustomAppBar(title: 'Make Payment'),
       ),
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
           ElevatedButton(
               onPressed: () async {
-                _navigationService.pushReplacementNamed("/home");
-                _alertService.showToast(text: "Payment successful");
-                await Future.delayed(Duration(seconds: 2));
-                _alertService.showToast(text: "Booking made\nWait for confirmation");
+                SharedPreferences prefs = await SharedPreferences.getInstance();
+                String? ownerID = prefs.getString('ownerID');
+                if (ownerID != null){
+                  _navigationService.pushReplacementWithArguments("/home", ownerID);
+                  _alertService.showToast(text: "Payment successful");
+                  await Future.delayed(Duration(seconds: 2));
+                  _alertService.showToast(text: "Booking made\nWait for confirmation");
+                }
               },
               child: Text("Pay"),
           )

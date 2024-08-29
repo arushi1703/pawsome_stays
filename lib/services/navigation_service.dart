@@ -5,6 +5,7 @@ import 'package:pawsome_stays/pages/booking_page.dart';
 import 'package:pawsome_stays/pages/home_page.dart';
 import 'package:pawsome_stays/pages/login_page.dart';
 import 'package:pawsome_stays/pages/payment_page.dart';
+import 'package:pawsome_stays/pages/petProfile_page.dart';
 import 'package:pawsome_stays/pages/petRegister_page.dart';
 import 'package:pawsome_stays/pages/register_page.dart';
 import 'package:pawsome_stays/pages/services_page.dart';
@@ -27,6 +28,7 @@ class NavigationService{
     "/beds" : (context) => BedsPage(),
     "/services" : (context) => ServicesPage(),
     "/registerService" : (context) => RegisterServicePage(),
+    "/petProfile" : (context) => PetprofilePage(),
   };
 
   GlobalKey<NavigatorState>? get navigatorKey{
