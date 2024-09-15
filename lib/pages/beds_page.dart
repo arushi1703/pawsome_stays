@@ -44,7 +44,7 @@ class BedsPage extends StatelessWidget {
             FillImageCard(
               heightImage: 200,
               imageProvider: AssetImage("images/basicbed.jpg"),
-              title: const Text('Basic Bed : Rs 2300',
+              title: const Text('Basic Bed : Rs 5000',
                 style: TextStyle(
                   fontSize: 18,
                   color: Colors.blue,
@@ -59,7 +59,7 @@ class BedsPage extends StatelessWidget {
             FillImageCard(
               heightImage: 200,
               imageProvider: AssetImage("images/bolsterbed.jpg"),
-              title: const Text('Bolster Bed : Rs3000',
+              title: const Text('Bolster Bed : Rs5000',
                 style: TextStyle(
                     fontSize: 18,
                     color: Colors.blue,
@@ -94,7 +94,7 @@ class BedsPage extends StatelessWidget {
             FillImageCard(
               heightImage: 200,
               imageProvider: AssetImage("images/heatedbed.jpg"),
-              title: const Text('Heated Bed : Rs7000',
+              title: const Text('Heated Bed : Rs5000',
                 style: TextStyle(
                     fontSize: 18,
                     color: Colors.blue,

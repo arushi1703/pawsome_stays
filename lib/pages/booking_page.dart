@@ -1,8 +1,11 @@
+import 'dart:convert';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:pawsome_stays/services/backend_service.dart';
 import 'package:pawsome_stays/widgets/custom_drawer.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 import '../services/navigation_service.dart';
@@ -19,10 +22,11 @@ class _BookingPageState extends State<BookingPage> {
 
   final GetIt _getIt = GetIt.instance;
   late NavigationService _navigationService;
+  late BackendService _backendService;
 
   String bedType='Basic';
   var bedtypes= ['Basic', 'Bolster', 'Orthopedic', 'Heated'];
-
+  bool isLoading = false;
   DateTimeRange dateRange = DateTimeRange(
     start: DateTime(2024,9,25),
     end: DateTime(2024,9,30),
@@ -32,6 +36,7 @@ class _BookingPageState extends State<BookingPage> {
   void initState() {
     super.initState();
     _navigationService = _getIt.get<NavigationService>();
+    _backendService = _getIt.get<BackendService>();
   }
 
   @override
@@ -225,10 +230,62 @@ class _BookingPageState extends State<BookingPage> {
     return Container(
       width: MediaQuery.sizeOf(context).width,
       child: ElevatedButton(
-          onPressed: (){
-            _navigationService.pushReplacementNamed("/payment");
+          onPressed: isLoading
+              ? null // Disable button when loading
+              : () async {
+            setState(() {
+              isLoading = true;  // Start loading
+            });
+
+            // Retrieve ownerID from SharedPreferences
+            SharedPreferences prefs = await SharedPreferences.getInstance();
+            String? ownerID = prefs.getString('ownerID');
+
+            if (ownerID != null) {
+              // Fetch petID asynchronously
+              String? petID = await _backendService.getPetIDByOwnerID(ownerID);
+
+              if (petID != null) {
+                // Call the addBooking function with all necessary details
+                final response = await _backendService.addBooking(
+                  ownerID: ownerID,
+                  petID: petID,
+                  bedType: bedType,
+                  checkIn: dateRange.start,
+                  checkOut: dateRange.end,
+                );
+                if (response.statusCode == 201) {
+                  final totalDays = dateRange.duration.inDays;
+                  Map<String, dynamic> bookingDetails = {
+                    'bedType': bedType,
+                    'check_in': dateRange.start.toIso8601String(),
+                    'check_out': dateRange.end.toIso8601String(),
+                    'totalDays': totalDays,
+                  };
+                  // Convert the map to a JSON string
+                  String bookingDetailsJson = jsonEncode(bookingDetails);
+                  print(bookingDetailsJson);
+                  // Store the JSON string in SharedPreferences
+                  await prefs.setString('bookingDetails', bookingDetailsJson);
+                  _navigationService.pushReplacementNamed("/payment");
+                } else {
+                  print('Failed to add booking: ${response.body}');
+                }
+              } else {
+                print('Error fetching petID');
+              }
+            } else {
+              print('Error: ownerID not found in SharedPreferences');
+            }
+            setState(() {
+              isLoading = false;  // Stop loading after the process completes
+            });
           },
-          child: const Text(
+          child: isLoading
+              ? CircularProgressIndicator(  // Show loading indicator
+            color: Colors.white,
+          )
+              : const Text(
             "Make Payment",
             style: TextStyle(
               fontSize: 17,

@@ -1,6 +1,6 @@
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import 'package:flutter/material.dart';
+
 
 class BackendService{
   final String _baseUrl = "http://192.168.178.129:8080";
@@ -74,5 +74,29 @@ class BackendService{
       print(e);
     }
     return null; // Return null if the request fails
+  }
+
+  Future<http.Response> addBooking({
+    required String ownerID,
+    required String petID,
+    required String bedType,
+    required DateTime checkIn,
+    required DateTime checkOut,
+  }) async {
+    final Map<String, dynamic> requestBody = {
+      "ownerID": ownerID,
+      "petID": petID,
+      "bedType": bedType,
+      "check_in": checkIn.toIso8601String(),
+      "check_out": checkOut.toIso8601String(),
+    };
+    final response = await http.post(
+      Uri.parse("$_baseUrl/api/booking/add"),
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: jsonEncode(requestBody),
+    );
+    return response;
   }
 }

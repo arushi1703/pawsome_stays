@@ -23,7 +23,7 @@ class NavigationService{
     "/register" : (context) => RegisterPage(),
     "/Petregister" : (context) => PetregisterPage(),
     "/booking" : (context) => BookingPage(),
-    "/payment" : (context) => PaymentPage(),
+    "/payment" : (context) => PaymentPage(arguments: {},),
     "/status" : (context) => StatusPage(),
     "/beds" : (context) => BedsPage(),
     "/services" : (context) => ServicesPage(),
