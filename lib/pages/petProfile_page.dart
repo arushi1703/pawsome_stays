@@ -1,6 +1,11 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:pawsome_stays/widgets/custom_drawer.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import '../services/backend_service.dart';
 import '../widgets/custom_appbar.dart';
 
 class PetprofilePage extends StatefulWidget {
@@ -11,6 +16,38 @@ class PetprofilePage extends StatefulWidget {
 }
 
 class _PetprofilePageState extends State<PetprofilePage> {
+
+  Map<String, dynamic>? petDetails;
+  final GetIt _getIt = GetIt.instance;
+  late BackendService _backendService;
+
+  @override
+  void initState() {
+    super.initState();
+    _backendService = _getIt.get<BackendService>();
+    _fetchAndStorePetDetails();
+  }
+
+  Future<void> _fetchAndStorePetDetails() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? ownerID = prefs.getString('ownerID');
+    if (ownerID != null){
+      String? petID = await _backendService.getPetIDByOwnerID(ownerID);
+      if (petID != null){
+        final details = await _backendService.getPetDetailsByID(petID);
+
+        if (details != null) {
+          SharedPreferences prefs = await SharedPreferences.getInstance();
+          await prefs.setString('petDetails', jsonEncode(details));
+
+          setState(() {
+            petDetails = details; // Store the fetched details in state
+          });
+        }else { print ("Pet details are null");}
+      }else { print ("PetID is null");}
+    }else { print ("OwnerID null");}
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,7 +60,9 @@ class _PetprofilePageState extends State<PetprofilePage> {
         preferredSize: Size.fromHeight(kToolbarHeight),
         child: const CustomDrawer(),
       ),
-      body: _buildUI(),
+      body: petDetails == null
+          ? Center(child: CircularProgressIndicator())
+          : _buildUI(),
     );
   }
 
@@ -45,7 +84,7 @@ class _PetprofilePageState extends State<PetprofilePage> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children:[
-                  //_petForm(),
+                  _petForm(),
                 ]
               )
             )
@@ -66,16 +105,16 @@ class _PetprofilePageState extends State<PetprofilePage> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const Text('Fluffy',
-              style: TextStyle(
+            Text(petDetails?['name'] ?? 'Unknown',
+              style: const TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.w800,
               ),
             ),
-            _buildReadOnlyTextField('Age', '3 yrs'),
-            _buildReadOnlyTextField('Type', 'Dog'),
-            _buildReadOnlyTextField('Gender', 'Female'),
-            _buildReadOnlyTextField('Notes', 'Loves to play fetch'),
+            _buildReadOnlyTextField('Age', petDetails?['age']?.toString() ?? ''),
+            _buildReadOnlyTextField('Type', petDetails?['pettype'] ?? ''),
+            _buildReadOnlyTextField('Gender', petDetails?['gender'] ?? ''),
+            _buildReadOnlyTextField('Notes', petDetails?['notes'] ?? ''),
           ],
         )
       ),

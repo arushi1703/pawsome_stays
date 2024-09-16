@@ -2,6 +2,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 
+
 class BackendService{
   final String _baseUrl = "http://192.168.178.129:8080";
 
@@ -98,5 +99,27 @@ class BackendService{
       body: jsonEncode(requestBody),
     );
     return response;
+  }
+
+  Future<Map<String, dynamic>?> getPetDetailsByID(String petID) async {
+    try {
+      final response = await http.get(
+        Uri.parse("$_baseUrl/api/pet/get/$petID"),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      );
+
+      if (response.statusCode == 200) {
+        print("Pet details Response: ${response}");
+        final data = jsonDecode(response.body);
+        return data; // Return the pet details from the response
+      } else {
+        print('Failed to retrieve pet details: ${response.body}');
+      }
+    } catch (e) {
+      print(e);
+    }
+    return null; // Return null if the request fails
   }
 }
